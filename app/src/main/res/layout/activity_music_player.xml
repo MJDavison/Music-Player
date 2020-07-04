@@ -91,7 +91,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="32dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_shuffle" />
+            android:src="@drawable/ic_shuffle_disabled" />
 
         <ImageView
             android:id="@+id/btn_previous"
@@ -125,7 +125,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_loop" />
+            android:src="@drawable/ic_loop_disabled" />
 
     </LinearLayout>
 

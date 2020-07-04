@@ -11,13 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class LibraryActivity extends AppCompatActivity {
+    private static final LibraryActivity instance = new LibraryActivity();
+    ListView listView;
 
+    public static LibraryActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
-
+        listView = findViewById(R.id.list);
         //ArrayList for Songs
         ArrayList<Song> songList = new ArrayList<>();
 
@@ -55,23 +60,40 @@ public class LibraryActivity extends AppCompatActivity {
         songList.get(8).setAlbumArtID(R.drawable.topic_and_a7s_breaking_me);
 
         SongAdapter itemsAdapter = new SongAdapter(this, songList);
-        final ListView listView = findViewById(R.id.list);
+
         listView.setAdapter(itemsAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent playSongIntent = new Intent(LibraryActivity.this, MusicPlayerActivity.class);
-                Song currentSong = (Song) listView.getItemAtPosition(position);
-                playSongIntent.putExtra("songName", currentSong.getName());
-                playSongIntent.putExtra("songArtist", currentSong.getArtist());
-                playSongIntent.putExtra("songAlbum", currentSong.getAlbum());
-                playSongIntent.putExtra("songLengthString", currentSong.getSongLengthString());
-                playSongIntent.putExtra("songLengthInt", currentSong.getSongLengthTime());
-                playSongIntent.putExtra("songAlbumArt", currentSong.getAlbumArtID());
-
-                startActivity(playSongIntent);
+            public void onItemClick(AdapterView<?> parent, View view, int songID, long id) {
+                playSong(songID);
             }
         });
+    }
+
+    public final void playSong(int songID) {
+        Intent playSongIntent = new Intent(LibraryActivity.this, MusicPlayerActivity.class);
+
+        Song currentSong = (Song) listView.getItemAtPosition(songID);
+        int nextSong = 0;
+        int previousSong = 0;
+
+        if (listView.getItemAtPosition(songID + 1) != null)
+            nextSong = songID + 1;
+        if (listView.getItemAtPosition(songID - 1) != null)
+            previousSong = songID - 1;
+
+
+        playSongIntent.putExtra("songName", currentSong.getName());
+        playSongIntent.putExtra("songArtist", currentSong.getArtist());
+        playSongIntent.putExtra("songAlbum", currentSong.getAlbum());
+        playSongIntent.putExtra("songLengthString", currentSong.getSongLengthString());
+        playSongIntent.putExtra("songLengthInt", currentSong.getSongLengthTime());
+        playSongIntent.putExtra("songAlbumArt", currentSong.getAlbumArtID());
+        playSongIntent.putExtra("nextSongID", nextSong);
+        playSongIntent.putExtra("previousSongID", previousSong);
+
+
+        startActivity(playSongIntent);
     }
 }
