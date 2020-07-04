@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:label="@string/music_player_activity_label"
             android:name=".MusicPlayerActivity"
             android:parentActivityName=".LibraryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LibraryActivity" />
         </activity>
-        <activity android:name=".LibraryActivity">
+        <activity
+            android:name=".LibraryActivity"
+            android:label="@string/library_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
