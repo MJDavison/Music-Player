@@ -8,20 +8,22 @@ public class Song {
     private String album;
     private int albumArtID;
 
-    Song(String songName, String songLength, String songArtist, String songAlbum) {
+    Song(String songName, String songLength, String songArtist, String songAlbum, int songAlbumArtID) {
         name = songName;
         songLengthString = songLength;
         album = songAlbum;
         artist = songArtist;
+        albumArtID = songAlbumArtID;
 
         songLengthTime = timeCalculator();
     }
 
-    Song(String songName, String songLength, String songArtist) {
+    Song(String songName, String songLength, String songArtist, int songAlbumArtID) {
         name = songName;
         songLengthString = songLength;
         artist = songArtist;
         album = "Single";
+        albumArtID = songAlbumArtID;
 
         songLengthTime = timeCalculator();
     }
